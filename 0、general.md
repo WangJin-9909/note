@@ -1,8 +1,8 @@
 1、Winddows终端设置代理
 
-set http_proxy=http://127.0.0.1:1080
+set http_proxy=http://127.0.0.1:33210
 
-set http_proxys=http://127.0.0.1:1080
+set http_proxys=http://127.0.0.1:33210
 
 2、局域网内里共享文件：
 
@@ -21,3 +21,6 @@ Step2. 调用 Python 一行代码启用静态文件服务器
 另附：查看python版本
 
 ​           python -V
+
+2、探索者：https://www.cryxr.xyz/
+

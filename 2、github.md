@@ -76,13 +76,15 @@ git checkout test
 
 ## 6、合并分支
 
-git merge
+git merge A：把A分支合并到当前分支，若合并有冲突，需要解决冲突，android studio下使用右键项目工程，Git ->Resolve Conflict来解决冲突，解决冲突后，可能需要重新commit ，再push，此处切记不要直接push
 
 ## 7、git checkout -b newBrach origin/master
 
 在`origin/master`的基础上，创建一个新分支。
 
+## 8、更改分支名称
 
+git branch -m 旧分支名称   新分支名称
 
 
 
@@ -301,23 +303,63 @@ git push
 
 ## 3、拉取commit，世界使用工具拉即可，as提供的工具或者直接checkout commit号
 
+
+
+## 4、git撤销已提交的commit【未实战测试】
+
+1、撤销本次提交：git reset --soft HEAD^
+2、如果需要连add的文件也一并撤销，使用命令：git reset --hard HEAD^
+命令解释：
+
+HEAD^ 表示上一个版本，即上一次的commit，也可以写成HEAD~1 如果进行两次的commit，想要都撤回，可以使用HEAD~2
+–soft 不删除工作空间的改动代码 ，撤销commit，不撤销git add file
+–hard 删除工作空间的改动代码，   撤销commit且撤销add的文件
+3、修改commit的message：git commit --amend   执行后会进入vim编辑器，使用Insert键进行编辑，完成后输入:wq进行保存
+
+
+
+
+
+
+
+
+
+删除本地文件后，想从远程仓库中重新新Pull最新代码，但是执行了git pull命令后始终无法拉取下来
+提示 Already up-to-date.
+原因：当前本地库处于另一个分支中，需将本分支发Head重置至develop
+git 强行pull并覆盖本地文件(依次执行)
+
+git fetch --all
+git reset --hard origin/master(master可修改为对应分支名)
+git pull
+
+
+
 ## 
 
 # 十、stash缓存
 
 https://jingyan.baidu.com/article/7e44095386e1a06fc1e2ef33.html
 
-1.使用git status指令查看当前文件状态。
+1.然后，使用指令git stash 将文件修改缓存。这时候可以切换到其它分支干别的了，或者
 
-2.然后，使用指令git stash 将文件修改缓存。
+2.使用git status指令确认当前分支没有修改内容。  
 
-3.使用git status指令确认当前分支没有修改内容。
+3.使用指令git stash list，查看当前缓存列表。
 
-4.使用指令git stash list，查看当前缓存列表。
-
-5.使用指令git stash apply stash@{id}，恢复指令ID的缓存内容，并且保留缓存条目。
+4.使用指令git stash apply stash@{id}，恢复指令ID的缓存内容，并且保留缓存条目。
 
 6.使用git stash pop 恢复最新的stash，同时删除恢复的缓存条目。
+
+
+
+【stash用上面的这个方法就行，亲测有效】
+
+
+
+git stash clear  :注意这是清空所有stash
+
+git stash drop stash@{0}  这是删除第一个队列
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -338,6 +380,32 @@ CONFLICT (content): Merge conflict in c/environ.c
 git冲突内容
 其中Updated upstream 和=====之间的内容就是pull下来的内容，====和stashed changes之间的内容就是本地修改的内容。碰到这种情况，git也不知道哪行内容是需要的，所以要自行确定需要的内容。
 解决完成之后，就可以正常的提交了。
+
+
+
+
+
+1）**git stash save "备注信息"** : 存放时添加备注便于查找；当然只执行`git stash` 也可以，系统会自动为我们添加备注，但不便于查找
+
+2）**git stash list** : 查看存放列表
+
+3）**git stash show** : 显示改动信息，默认展示第一个存储,如果要显示其它存储，后面加stash@{index}，比如第二个 git stash show stash@{1}
+
+4）**git stash show -p** : 显示第一个存储的改动，如果想显示其它存储，`git stash show stash@{index} -p` ，比如第二个：git stash show  stash@{1} -p
+
+5）**git stash pop** : 恢复之前存储的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下,默认为第一个stash,即stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num} ，比如应用并删除第二个：git stash pop stash@{1}
+
+6）**git stash apply** : 应用某个存储,但其不会从存储列表中删除，默认使用第一个存储,即stash@{0}，如果要使用其他个，git stash apply stash@{index} ， 比如第二个：git stash apply stash@{1} 
+
+> `git stash pop` 与 `git stash apply`的区别：前者应用后会将其从存储列表中删除，而后者则不会
+
+7）**git stash drop stash@{index}** : 丢弃stash@{index}存储，从列表中删除某个存储
+
+8）**git stash clear** : 清除存储列表中的所有stash
+
+
+
+
 
 
 
@@ -405,4 +473,20 @@ git tag -a   标签名称  commitID
 # 九、其它：
 
 给android studio配置密码：https://www.jianshu.com/p/2746133378b9
+
+git config --global credential.helper store
+
+![1641777317312](img\1641777317312.png)
+
+
+
+
+
+
+
+
+
+
+
+2、
 

@@ -6,3 +6,7 @@ adb shell  am start -a android.intent.action.VIEW -d http://www.baidu.com
 
 adb shell dumpsys gfxinfo 【包名】
 
+3、输入文本
+
+adb shell input text  文本
+
