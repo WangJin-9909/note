@@ -18,6 +18,8 @@ Step2. 调用 Python 一行代码启用静态文件服务器
 
 ​            python -m http.server    
 
+**		python -m http.server 8000
+
 另附：查看python版本
 
 ​           python -V
